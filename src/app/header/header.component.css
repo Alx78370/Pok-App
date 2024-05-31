@@ -1,0 +1,14 @@
+.bg-pokeball {
+  background-color: #FF1C1C;
+  border-bottom: 4px solid black;
+}
+.pokeball-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+}
+.pokeball-button {
+  width: 50px;
+  height: 50px;
+
+}

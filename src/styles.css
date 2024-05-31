@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  @font-face {
+    font-family: 'Pokemon';
+    src: url('/assets/fonts/PokemonClassic.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'PokemonTitle';
+    src: url('/assets/fonts/PokemonSolid.ttf') format('truetype');
+  }
+}
+
+.text-pokemon {
+  color: #FFCB05; /* Pokémon Yellow */
+  text-shadow:
+    -2px -2px 0 #3B4CCA,
+     2px -2px 0 #3B4CCA,
+    -2px  2px 0 #3B4CCA,
+     2px  2px 0 #3B4CCA;
+}
+
