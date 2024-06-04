@@ -14,6 +14,7 @@ import { Pokemon } from '../Models/pokemon';
 })
 export class PokeListComponent {
   pokemons: Pokemon[] = [];
+  pokemonNoFilter: Pokemon[] = [];
   pokemonTypes: any = [];
   isPokeballNotCliked: boolean[] = [];
   isShowMenu: boolean = false;
@@ -27,6 +28,7 @@ export class PokeListComponent {
       for (let pokemon of data.results) {
         this.pokemonService.getPokemonDetails(pokemon).subscribe((details: any) => {
           this.pokemons.push(details);
+          this.pokemonNoFilter.push(details);
           this.isPokeballNotCliked.push(true);
         });
       }
@@ -64,7 +66,7 @@ export class PokeListComponent {
   }
 
   resetFilter() {
-    this.pokemons = [];
+    this.pokemons = this.pokemonNoFilter;
 
   }
 
