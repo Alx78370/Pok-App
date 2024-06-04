@@ -4,11 +4,11 @@
     <h1 class="text-3xl font-pokemonTitle font-bold text-pokemon text-center px-4">Pokédex</h1>
   </div>
   <div class="max-w-3xl mx-auto mb-5 font-pokemon w-fit">
-    <button class="border-solid border-gray-300 p-2 bg-white rounded-md mr-5 " (click)="showMenu()">Filter by type</button>
+    <button class="border-solid border-gray-300 p-2 bg-white rounded-md mr-5 relative " (click)="showMenu()">Filter by type</button>
     @if (isShowMenu) {
-      <div class="grid-col-3">
+      <div class="grid grid-cols-3 gap-4 absolute bg-white bg-opacity-80 p-4 rounded-md shadow-md left-1/2 transform -translate-x-1/2 mt-2">
         @for (type of pokemonTypes; track type) {
-        <p class="shadow-md rounded p-2 cursor-pointer w-fit hover:bg-gray-100 hover:text-xl " (click)="filterByType(type.name); showMenu()">{{ type.name }}</p>
+        <p class="shadow-md rounded p-2 cursor-pointer text-white bg-gray-400 hover:bg-opacity-60 transform transition duration-300 ease-in-out" [style.background-color]="getTypeColor(type.name)" (click)="filterByType(type.name); showMenu()">{{ type.name }}</p>
         }
       </div>
     }

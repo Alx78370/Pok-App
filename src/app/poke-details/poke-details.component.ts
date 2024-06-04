@@ -30,25 +30,20 @@ export class PokeDetailsComponent {
     this.pokemonService.getPokemonById(this.pokeId).pipe(
       tap((data: any) => {
         this.pokemonDetails.push(data);
-        console.log(this.pokemonDetails);
+        this.pokemonImages = data.sprites;
       }),
-      switchMap(() => this.pokemonService.getSpeciesById(this.pokeId)),
-      tap((species: any) => {
-        this.pokemonSpecies.push(species);
-        console.log(this.pokemonSpecies);
+      switchMap((data: any) => this.pokemonService.getEvolutionsChainById(data.id)),
+      tap((data: any) => {
+        this.pokemonEvolutions.push(data.chain);
       }),
-      switchMap(() => {
-        const url = this.pokemonSpecies[0].evolution_chain.url;
-        const evolutionChainId = this.extractIdFromUrl(url);
-        return evolutionChainId ? this.pokemonService.getEvolutionsChainById(evolutionChainId) : of(null);
+      switchMap((data: any) => this.pokemonService.getSpeciesById(data.id)),
+      tap((data: any) => {
+        this.pokemonSpecies.push(data);
       }),
-      tap((evolution: any) => {
-        if (evolution) {
-          this.pokemonEvolutions.push(evolution);
-          console.log(this.pokemonEvolutions);
-
-        }
-      }),
+      catchError((error: any) => {
+        console.error(error);
+        return of(error);
+      })
     ).subscribe();
   }
 
