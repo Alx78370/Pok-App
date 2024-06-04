@@ -1,1 +1,92 @@
-<p>poke-details works!</p>
+
+<body class="bg-gray-100 px-72 py-10 font-pokemon">
+  <div class="flex justify-between ">
+    <div class="flex flex-col justify-between">
+      <div>
+        <p class="text-3xl">{{pokemonDetails[0].name | titlecase }}</p>
+        <p class="text-xl mr-20">#{{pokemonDetails[0].id | pokemonId }}</p>
+      </div>
+      <div>
+        <p>{{ pokemonDetails[0].height | pokemonHeight}} cm</p>
+        <p>{{ pokemonDetails[0].weight }} kg</p>
+      </div>
+    </div>
+    <div class="flex">
+      <div class="bg-gray-200 p-2 mr-5 rounded"
+        style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
+        <img src="{{pokemonDetails[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
+          class="w-40 h-40 object-contain">
+      </div>
+      <div class="bg-gray-200 p-2 rounded"
+        style="background-image: url('../../assets/images/backgroundPokemonSand.png'); background-size: cover;">
+        <img src="{{pokemonDetails[0].sprites.back_default}}" alt="{{pokemonDetails[0].name}} back"
+          class="w-40 h-40 object-contain">
+
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-200 rounded-md shadow-md m-2">
+    <p class="text-2xl mt-10 mb-2">Description</p>
+    <p class="text-xl">{{pokemonSpecies[0].flavor_text_entries[0].flavor_text}}</p>
+  </div>
+  <div class="bg-gray-200 rounded-md shadow-md">
+    <p class="text-2xl mt-10 mb-2">Types</p>
+    <ul class="flex flex-wrap">
+      @for (type of pokemonDetails[0].types; track type.slot) {
+      <li class="text-white rounded text-xl shadow-md py-2 px-6 m-2"
+        [style.background-color]="getTypeColor(type.type.name)">{{
+        type.type.name }}</li>
+      }
+    </ul>
+  </div>
+  <div class="bg-gray-200 rounded-md shadow-md">
+    <p class="text-2xl mt-10 mb-2">Abilities</p>
+    <ul class="flex flex-wrap">
+      @for (ability of pokemonDetails[0].abilities; track ability.slot) {
+      <li class="text-xl bg-white p-2 rounded-lg shadow-md m-2">{{ability.ability.name | titlecase}}</li>
+      }
+    </ul>
+  </div>
+  <div class="bg-gray-200 rounded-md shadow-md">
+    <p class="text-2xl mt-10 mb-2">Stats</p>
+    <ul>
+      @for (stat of pokemonDetails[0].stats; track stat.base_stat) {
+      <li class="flex justify-between">
+        <p class="text-xl">{{stat.stat.name | titlecase}}</p>
+        <p class="text-xl">{{stat.base_stat}}</p>
+      </li>
+      }
+    </ul>
+  </div>
+  <div class="bg-gray-200 rounded-md shadow-md">
+    <p class="text-2xl mt-10 mb-2">Evolutions</p>
+    <div class="flex justify-between">
+
+      <div class="flex flex-col items-center">
+        <div class="rounded-full" style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
+          <img src="{{pokemonImages[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
+            class="w-20 h-20 object-contain">
+        </div>
+        <p>{{ pokemonEvolutions[0].chain.species.name}}</p>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="rounded-full" style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
+          <img src="{{pokemonImages[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
+            class="w-20 h-20 object-contain">
+        </div>
+        <p>{{ pokemonEvolutions[0].chain.evolves_to[0].species.name}}</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="rounded-full" style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
+          <img src="{{pokemonImages[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
+            class="w-20 h-20 object-contain">
+        </div>
+        <p>{{ pokemonEvolutions[0].chain.evolves_to[0].evolves_to[0].species.name}}</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
