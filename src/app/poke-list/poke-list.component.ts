@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PokemonIdPipe } from '../pipes/pokemon-id.pipe';
 import { Pokemon } from '../Models/pokemon';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-poke-list',
@@ -32,11 +33,9 @@ export class PokeListComponent {
           this.isPokeballNotCliked.push(true);
         });
       }
-      console.log(this.pokemons);
     });
     this.pokemonService.getPokemonTypes().subscribe((data: any) => {
       this.pokemonTypes = data.results;
-      console.log(this.pokemonTypes);
     });
 
   }
@@ -61,13 +60,14 @@ export class PokeListComponent {
   filterByType(value: string) {
     this.resetFilter()
     if (this.type = value) {
-      this.pokemons = this.pokemons.filter(pokemon => pokemon.types[0].type.name.includes(value));
+      this.pokemons = this.pokemons.filter(pokemon => pokemon.types[0].type.name.includes(value) || pokemon.types[1]?.type.name.includes(value));
     }
   }
 
   resetFilter() {
     this.pokemons = this.pokemonNoFilter;
-
   }
+
+
 
 }

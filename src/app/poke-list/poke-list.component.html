@@ -12,12 +12,10 @@
         }
       </div>
     }
-    <button class="border-solid border-gray-300 p-2 bg-white rounded-md" (click)="resetFilter()">
+    <button class="border-solid border-gray-300 p-2 bg-red rounded-md" (click)="resetFilter()">
       Reset all filters
     </button>
   </div>
-
-
   <ul class="max-w-3xl mx-auto">
     @for (pokemon of pokemons; track pokemon.id) {
     <li class="mb-6">
