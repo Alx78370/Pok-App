@@ -32,13 +32,13 @@ export class PokeDetailsComponent {
         this.pokemonDetails.push(data);
         this.pokemonImages = data.sprites;
       }),
-      switchMap((data: any) => this.pokemonService.getEvolutionsChainById(data.id)),
-      tap((data: any) => {
-        this.pokemonEvolutions.push(data.chain);
-      }),
       switchMap((data: any) => this.pokemonService.getSpeciesById(data.id)),
       tap((data: any) => {
         this.pokemonSpecies.push(data);
+      }),
+      switchMap((data: any) => this.pokemonService.getEvolutionsChainById(data.id)),
+      tap((data: any) => {
+        this.pokemonEvolutions.push(data.chain);
       }),
       catchError((error: any) => {
         console.error(error);

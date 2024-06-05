@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PokemonIdPipe } from '../pipes/pokemon-id.pipe';
 import { Pokemon } from '../Models/pokemon';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-poke-list',
@@ -19,6 +20,7 @@ export class PokeListComponent {
   isPokeballNotCliked: boolean[] = [];
   isShowMenu: boolean = false;
   type:string = '';
+  private searchSubscription: Subscription = new Subscription();
 
 
   constructor(private pokemonService: PokemonService) { }
@@ -32,11 +34,12 @@ export class PokeListComponent {
           this.isPokeballNotCliked.push(true);
         });
       }
-      console.log(this.pokemons);
     });
     this.pokemonService.getPokemonTypes().subscribe((data: any) => {
       this.pokemonTypes = data.results;
-      console.log(this.pokemonTypes);
+    });
+    this.searchSubscription = this.pokemonService.searchQuery.subscribe(query => {
+      this.filterPokemons(query);
     });
 
   }
@@ -44,6 +47,16 @@ export class PokeListComponent {
   ngOnDestroy() {
     this.pokemons = [];
     this.isPokeballNotCliked = [];
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  filterPokemons(query: string) {
+    query = query.toLowerCase();
+    this.pokemons = this.pokemonNoFilter.filter(pokemon =>
+      pokemon.name.toLowerCase().includes(query)
+    );
   }
 
   togglePokeball(index: number) {
@@ -61,13 +74,14 @@ export class PokeListComponent {
   filterByType(value: string) {
     this.resetFilter()
     if (this.type = value) {
-      this.pokemons = this.pokemons.filter(pokemon => pokemon.types[0].type.name.includes(value));
+      this.pokemons = this.pokemons.filter(pokemon => pokemon.types[0].type.name.includes(value) || pokemon.types[1]?.type.name.includes(value));
     }
   }
 
   resetFilter() {
     this.pokemons = this.pokemonNoFilter;
-
   }
+
+
 
 }

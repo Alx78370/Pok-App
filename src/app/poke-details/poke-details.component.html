@@ -32,7 +32,7 @@
     <p class="text-2xl mt-10 mb-2">Types</p>
     <ul class="flex flex-wrap">
       @for (pokemonType of pokemonDetails[0].types; track pokemonType.slot) {
-      <li class="text-white rounded text-xl shadow-md py-2 px-6 m-2">{{pokemonType.type.name }}</li>
+      <li class="text-white rounded text-xl shadow-md py-2 px-6 m-2" [style.background-color]="getTypeColor(pokemonType.type.name)">{{ pokemonType.type.name }}</li>
       }
     </ul>
   </div>
@@ -61,23 +61,20 @@
 
       <div class="flex flex-col items-center">
         <div class="rounded-full" style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
-          <img src="{{pokemonImages[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
-            class="w-20 h-20 object-contain">
+
         </div>
         <p>{{ pokemonEvolutions[0].chain.species.name}}</p>
       </div>
 
       <div class="flex flex-col items-center">
         <div class="rounded-full" style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
-          <img src="{{pokemonImages[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
-            class="w-20 h-20 object-contain">
+
         </div>
         <p>{{ pokemonEvolutions[0].chain.evolves_to[0].species.name}}</p>
       </div>
       <div class="flex flex-col items-center">
         <div class="rounded-full" style="background-image: url('../../assets/images/backgroundPokemon.jpg'); background-size: cover;">
-          <img src="{{pokemonImages[0].sprites.front_default}}" alt="{{pokemonDetails[0].name}} front"
-            class="w-20 h-20 object-contain">
+
         </div>
         <p>{{ pokemonEvolutions[0].chain.evolves_to[0].evolves_to[0].species.name}}</p>
       </div>

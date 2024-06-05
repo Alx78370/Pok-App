@@ -1,4 +1,4 @@
-<header class="bg-pokeball text-black sticky top-0 shadow-md relative">
+<header class="bg-pokeball text-black sticky top-0 shadow-md z-20 relative">
   <div class="flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="flex justify-center items-center">
       <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Poké_Ball_icon.svg" alt="Pokéball Icon"
@@ -11,9 +11,6 @@
     <div class="absolute left-1/2 -bottom-7 transform -translate-x-1/2">
       <img src="../../assets/images/pokeballButton.jpg" alt="buttonPokeball" class="pokeball-button">
     </div>
-    <div class="flex-grow mx-4 max-w-xs">
-      <input type="text" placeholder="Search a Pokémon..."
-        class="w-full p-2 rounded-full border-2 border-black font-pokemon text-xs focus:outline-none focus:ring-2 focus:ring-red-500">
-    </div>
+    <app-search-bar></app-search-bar>
   </div>
 </header>
