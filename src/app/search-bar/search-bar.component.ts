@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl, Validator } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormControl} from '@angular/forms';
+import { PokemonService } from '../services/pokemon.service';
 
 
 @Component({
@@ -11,14 +12,12 @@ import { FormGroup, ReactiveFormsModule, FormControl, Validator } from '@angular
 })
 export class SearchBarComponent {
   newSearch = new FormGroup({
-    search: new FormControl('')
+    search: new FormControl ?? ''
   });
 
-  constructor() { }
+  constructor(private pokemonService: PokemonService) { }
 
   submitSearch() {
-
-
-
+    this.pokemonService.setSearchQuery(this.newSearch.get('search')?.value || '');
   }
 }

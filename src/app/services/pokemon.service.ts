@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class PokemonService {
   private http = inject(HttpClient);
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+  private searchQuerySubject = new BehaviorSubject<string>('');
+  searchQuery = this.searchQuerySubject.asObservable();
 
   constructor() { }
 
@@ -51,6 +54,10 @@ export class PokemonService {
   }
   getSpeciesById(id: number) {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+  }
+
+  setSearchQuery(query: string) {
+    this.searchQuerySubject.next(query);
   }
 
 }

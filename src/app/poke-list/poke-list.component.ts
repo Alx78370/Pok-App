@@ -20,6 +20,7 @@ export class PokeListComponent {
   isPokeballNotCliked: boolean[] = [];
   isShowMenu: boolean = false;
   type:string = '';
+  private searchSubscription: Subscription = new Subscription();
 
 
   constructor(private pokemonService: PokemonService) { }
@@ -37,12 +38,25 @@ export class PokeListComponent {
     this.pokemonService.getPokemonTypes().subscribe((data: any) => {
       this.pokemonTypes = data.results;
     });
+    this.searchSubscription = this.pokemonService.searchQuery.subscribe(query => {
+      this.filterPokemons(query);
+    });
 
   }
 
   ngOnDestroy() {
     this.pokemons = [];
     this.isPokeballNotCliked = [];
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  filterPokemons(query: string) {
+    query = query.toLowerCase();
+    this.pokemons = this.pokemonNoFilter.filter(pokemon =>
+      pokemon.name.toLowerCase().includes(query)
+    );
   }
 
   togglePokeball(index: number) {
